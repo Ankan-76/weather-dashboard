@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ankan-76.github.io/weather-dashboard/sitemap.xml
