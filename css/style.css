@@ -532,12 +532,15 @@ html[data-condition='thunderstorm'] .atmosphere-lightning {
   z-index: 60;
   padding: 28px 26px;
   transform: translateX(100%);
-  transition: transform var(--dur-med) var(--ease-out);
+  transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.55s ease, background 0.4s ease;
   overflow-y: auto;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0);
+  /* invisible until open */
 }
 
 .settings-drawer.is-open {
   transform: translateX(0);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.4);
 }
 
 .settings-header {
@@ -657,10 +660,12 @@ html[data-condition='thunderstorm'] .atmosphere-lightning {
 .settings-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 6, 12, 0.5);
+  background: rgba(4, 6, 12, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--dur-med) var(--ease-out);
+  transition: opacity 0.5s ease-out, backdrop-filter 0.5s ease;
   z-index: 55;
 }
 
@@ -1888,6 +1893,7 @@ html.force-reduced-motion * {
   color: var(--text-tertiary);
   border-top: 1px solid var(--hairline);
   padding-top: 22px;
+  padding-bottom: 32px;
 }
 
 .footer-links {
@@ -1895,13 +1901,18 @@ html.force-reduced-motion * {
   gap: 18px;
 }
 
-.footer-links a {
+.site-footer a {
   color: var(--text-tertiary);
   text-decoration: none;
+  transition: color var(--dur-fast);
 }
 
-.footer-links a:hover {
-  color: var(--text-secondary);
+.footer-links a.developer-link {
+  color: var(--signal-cool);
+}
+
+.site-footer a:hover {
+  color: var(--text-primary);
 }
 
 /* ==========================================================================
@@ -1976,6 +1987,16 @@ html.force-reduced-motion * {
 
   .location-info h1 {
     justify-content: center;
+    font-size: clamp(36px, 9vw, 46px);
+  }
+
+  .location-sub {
+    font-size: clamp(16px, 4.5vw, 20px);
+    margin-top: 8px;
+  }
+
+  .clock-time {
+    font-size: clamp(28px, 8vw, 38px);
   }
 
   .clock-block {
@@ -2016,6 +2037,18 @@ html.force-reduced-motion * {
 
   .aqi-breakdown {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .site-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    padding-bottom: 24px;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .header-actions .btn span {

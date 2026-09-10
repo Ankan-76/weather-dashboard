@@ -367,7 +367,8 @@ function qsButtons(container) {
 }
 
 function setupSettingsDrawer() {
-  dom.settingsToggle.addEventListener('click', () => {
+  dom.settingsToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = dom.settingsDrawer.classList.toggle('is-open');
     dom.settingsToggle.setAttribute('aria-expanded', String(isOpen));
     dom.settingsDrawer.setAttribute('aria-hidden', String(!isOpen));
@@ -375,6 +376,13 @@ function setupSettingsDrawer() {
   dom.settingsClose.addEventListener('click', closeSettings);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeSettings();
+  });
+  document.addEventListener('click', (e) => {
+    if (dom.settingsDrawer.classList.contains('is-open')) {
+      if (!dom.settingsDrawer.contains(e.target) && !dom.settingsToggle.contains(e.target)) {
+        closeSettings();
+      }
+    }
   });
 }
 
